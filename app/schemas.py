@@ -2,7 +2,7 @@ from sqlmodel import SQLModel
 from typing import Optional
 from datetime import datetime, date
 
-from .models import UserBase, TaskBase, TaskPriority
+from .models import TaskPriority, UserBase, TaskBase
 
 # User
 class UserCreate(UserBase):

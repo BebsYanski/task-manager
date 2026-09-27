@@ -1,6 +1,5 @@
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Field, Relationship
 import datetime
-from sqlmodel.main import Field, Relationship
 from enum import Enum
 from typing import Optional
 
@@ -29,10 +28,10 @@ class TaskBase(SQLModel):
     completed: bool = Field(default = False)
     priority:TaskPriority = Field(default = TaskPriority.MEDIUM, index = True)
     due_date:datetime.date | None = None
-    created_at = datetime.datetime = Field(default_factory=utc_now)
-    completed_at = Optional[datetime.datetime] = None
+    created_at : datetime.datetime = Field(default_factory=utc_now)
+    completed_at : Optional[datetime.datetime] = None
     
-    owner_id:int | None = Field(default = None, foreign_key="user_id")
+    owner_id:int | None = Field(default = None, foreign_key="user.id")
     owner: User | None = Relationship(back_populates="tasks")
 
 class Task(TaskBase,table=True):

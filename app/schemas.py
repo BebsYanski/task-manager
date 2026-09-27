@@ -1,29 +1,34 @@
+from datetime import date
+
 from sqlmodel import SQLModel
-from typing import Optional
-from datetime import datetime, date
 
-from .models import TaskPriority, UserBase, TaskBase
+from .models import TaskBase, TaskPriority, UserBase
 
-# User
+
 class UserCreate(UserBase):
     pass
 
-class UserRead(UserBase):
-    id:int
 
-# Tasks
+class UserRead(UserBase):
+    id: int
+
+
 class TaskCreate(TaskBase):
     pass
 
+
 class TaskUpdate(SQLModel):
-    title:str | None = None
-    description:str | None = None
+    title: str | None = None
+    description: str | None = None
     completed: bool | None = None
-    priority:TaskPriority | None = None
-    due_date:date | None = None
-    owner_id:int | None = None
+    priority: TaskPriority | None = None
+    due_date: date | None = None
+    owner_id: int | None = None
+
+
 class TaskRead(TaskBase):
-    id:int
-    
+    id: int
+
+
 class TaskReadWithOwner(TaskRead):
-    owner: Optional[UserRead] = None
+    owner: UserRead | None = None

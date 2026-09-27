@@ -13,8 +13,9 @@ class TaskPriority(Enum):
     LOW = "low"
 
 class UserBase(SQLModel):
-    name:str = Field(index = True)
+    name:str = Field(index = True, min_length=1, max_length=50)
     email: str = Field(unique = True, index = True)
+    age: int | None = Field(default = None, ge = 1, le = 150)
     address:str = Field(index = True)
     
     tasks: list["Task"] = Relationship(back_populates="owner")
@@ -24,7 +25,7 @@ class User(UserBase,table = True):
 
 class TaskBase(SQLModel):
     title:str = Field(index = True)
-    description:str | None
+    description:str | None = None
     completed: bool = Field(default = False)
     priority:TaskPriority = Field(default = TaskPriority.MEDIUM, index = True)
     due_date:datetime.date | None = None
